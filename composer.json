@@ -2,7 +2,7 @@
     "name": "pmvc-plugin/getenv",
     "description": "getenv for PMVC get plugin",
     "type": "library",
-    "keywords": ["hello", "pmvc", "plug-in"],
+    "keywords": ["get", "pmvc", "plug-in"],
     "license": "MIT",
     "authors": [
         {

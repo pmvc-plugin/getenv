@@ -4,12 +4,12 @@
 [![License](https://poser.pugx.org/pmvc-plugin/getenv/license)](https://packagist.org/packages/pmvc-plugin/getenv)
 [![Total Downloads](https://poser.pugx.org/pmvc-plugin/getenv/downloads)](https://packagist.org/packages/pmvc-plugin/getenv) 
 
-# PMVC Getenv Plugin 
+PMVC Getenv Plugin 
 ===============
    * getenv wrapper for pmvc-plugin/get
    * https://github.com/pmvc-plugin/get
 
-## How to use
+# How to use
    * check the unit test funciotn testGet
    * https://github.com/pmvc-plugin/getenv/blob/master/test.php#L17
 

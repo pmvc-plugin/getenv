@@ -9,6 +9,12 @@
    * getenv wrapper for pmvc-plugin/get
    * https://github.com/pmvc-plugin/get
 
+## How to use
+   * check the unit test funciotn testGet
+   * https://github.com/pmvc-plugin/getenv/blob/master/test.php#L17
+
+
+
 ## Install with Composer
 ### 1. Download composer
    * mkdir test_folder

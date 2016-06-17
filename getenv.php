@@ -1,22 +1,22 @@
 <?php
 namespace PMVC\PlugIn\getenv;
-use PMVC\PlugIn\get;
-// \PMVC\l(__DIR__.'/xxx.php');
+
+use PMVC\PlugIn\get\GetInterface;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
 
-\PMVC\initPlugin(array('get'=>null));
+\PMVC\initPlugin(['get'=>null]);
 
 class getenv extends \PMVC\PlugIn
-    implements get\GetInterface
+    implements GetInterface
 {
     public function get($s)
     {
-        return \getenv($s);
+        return \PMVC\value($_SERVER,[$s]);
     }
 
     public function has($s)
     {
-        return !empty(\getenv($s));
+        return isset($_SERVER[$s]);
     }
 }

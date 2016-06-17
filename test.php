@@ -1,6 +1,6 @@
 <?php
 PMVC\Load::plug();
-PMVC\addPlugInFolder('../');
+PMVC\addPlugInFolders(['../']);
 class GetEnvTest extends PHPUnit_Framework_TestCase
 {
     private $_plug='getenv';
@@ -16,13 +16,14 @@ class GetEnvTest extends PHPUnit_Framework_TestCase
 
     function testGet()
     {
-        $get = PMVC\plug('get');
-        $get['order'] = array(
-            'getenv'
-        );
+        $get = PMVC\plug('get', [
+            'order'=>[
+                'getenv'
+            ]
+        ]);
         $key = 'TTT';
         $value = 'lll';
-        putenv("$key=$value");
+        $_SERVER[$key] = $value; 
         $this->assertEquals($value,$get->get($key));
     }
 

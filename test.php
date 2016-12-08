@@ -27,4 +27,25 @@ class GetEnvTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($value,$get->get($key));
     }
 
+    function testCustomEnv()
+    {
+        $fakeKey = 'abc';
+        $fakeValue = '123';
+        $p = PMVC\plug($this->_plug, [
+            $fakeKey=> $fakeValue
+        ]);
+        $this->assertEquals($fakeValue,$p->get($fakeKey));
+    }
+
+    function testCustomEnvWithFunction()
+    {
+        $fakeKey = 'abc';
+        $fakeValue = '123';
+        $p = PMVC\plug($this->_plug, [
+            $fakeKey=> function() use ($fakeValue){
+                return $fakeValue;
+            }
+        ]);
+        $this->assertEquals($fakeValue,$p->get($fakeKey));
+    }
 }

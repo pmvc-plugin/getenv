@@ -10,13 +10,21 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
 class getenv extends \PMVC\PlugIn
     implements GetInterface
 {
-    public function get($s)
+    public function get($k)
     {
-        return \PMVC\value($_SERVER,[$s]);
+        if (isset($this[$k])) {
+            if (is_callable($this[$k])) {
+                return $this[$k]($k, $this);
+            } else {
+                return $this[$k];
+            }
+        } else {
+            return \PMVC\value($_SERVER,[$k]);
+        }
     }
 
-    public function has($s)
+    public function has($k)
     {
-        return isset($_SERVER[$s]);
+        return isset($_SERVER[$k]) || isset($this[$k]);
     }
 }

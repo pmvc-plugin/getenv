@@ -14,7 +14,12 @@ class getenv extends \PMVC\PlugIn
     {
         if (isset($this[$k])) {
             if (is_callable($this[$k])) {
-                return $this[$k]($k, $this);
+                $isCache = false;
+                $v = $this[$k]($isCache, $k, $this);
+                if ($isCache) {
+                    $this[$k] = $v;
+                }
+                return $v;
             } else {
                 return $this[$k];
             }

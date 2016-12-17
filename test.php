@@ -4,6 +4,12 @@ PMVC\addPlugInFolders(['../']);
 class GetEnvTest extends PHPUnit_Framework_TestCase
 {
     private $_plug='getenv';
+
+    function setup()
+    {
+        \PMVC\unplug($this->_plug);
+    }
+
     function testPlugin()
     {
         ob_start();
@@ -29,20 +35,20 @@ class GetEnvTest extends PHPUnit_Framework_TestCase
 
     function testCustomEnv()
     {
-        $fakeKey = 'abc';
-        $fakeValue = '123';
+        $fakeKey = 'ABC';
+        $fakeValue = '321';
         $p = PMVC\plug($this->_plug, [
-            $fakeKey=> $fakeValue
+            $fakeKey => $fakeValue
         ]);
         $this->assertEquals($fakeValue,$p->get($fakeKey));
     }
 
     function testCustomEnvWithFunction()
     {
-        $fakeKey = 'abc';
+        $fakeKey = 'ABC';
         $fakeValue = '123';
         $p = PMVC\plug($this->_plug, [
-            $fakeKey=> function() use ($fakeValue){
+            $fakeKey => function() use ($fakeValue){
                 return $fakeValue;
             }
         ]);

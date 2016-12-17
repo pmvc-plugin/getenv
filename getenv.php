@@ -13,24 +13,37 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
 class getenv extends \PMVC\PlugIn
     implements GetInterface
 {
+    public function init()
+    {
+        $this['SITE'] = function()
+        {
+            return basename(\PMVC\getAppsParent());
+        };
+    }
+
     public function get($k)
     {
-        if ($this['isDev'] && \PMVC\value($_REQUEST,['--'.$k])) {
+        if ($this['isDev'] &&
+            \PMVC\value($_REQUEST,['--'.$k])
+           ) {
 
             return $_REQUEST['--'.$k];
         } elseif (isset($this[$k])) {
-            if (is_callable($this[$k])) {
-                $isCache = false;
-                $v = $this[$k]($isCache, $k, $this);
-                if ($isCache) {
-                    $this[$k] = $v;
-                }
-
-                return $v;
-            } else {
+            if (!is_callable($this[$k])) {
 
                 return $this[$k];
             }
+            $isCache = false;
+            $v = $this[$k](
+                $isCache,
+                $k,
+                $this
+            );
+            if ($isCache) {
+                $this[$k] = $v;
+            }
+
+            return $v;
         } else {
 
             return \PMVC\value($_SERVER,[$k]);

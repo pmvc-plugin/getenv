@@ -23,11 +23,11 @@ class getenv extends \PMVC\PlugIn
 
     public function get($k)
     {
+        $reqKey = '--'.$k;
         if ($this['isDev'] &&
-            \PMVC\value($_REQUEST,['--'.$k])
+            isset($_REQUEST[$reqKey])
            ) {
-
-            return $_REQUEST['--'.$k];
+            return $_REQUEST[$reqKey];
         } elseif (isset($this[$k])) {
             if (!is_callable($this[$k])) {
 
@@ -45,9 +45,13 @@ class getenv extends \PMVC\PlugIn
 
             return $v;
         } else {
-
-            return \PMVC\value($_SERVER,[$k]);
+            return $this->getDefault($k);
         }
+    }
+
+    public function getDefault($k)
+    {
+        return \PMVC\get($_SERVER,$k);
     }
 
     public function has($k)

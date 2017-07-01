@@ -42,7 +42,7 @@ class getenv
             $pCookie = \PMVC\plug('cookie');
             if (!$isEmpty) {
                 $utm = join('_', $arr);
-                $pCookie->set($key, $utm);
+                $pCookie->set($key, $utm, ['lifetime'=>86400*365]);
                 return $utm;
             }
             $utm = $pCookie->get($key);

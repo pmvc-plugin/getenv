@@ -1,7 +1,9 @@
 <?php
+
 namespace PMVC\PlugIn\getenv;
 
 use PMVC\PlugIn\get\GetInterface;
+use PMVC\PlugIn;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
 
@@ -10,14 +12,45 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
 /**
  * @parameters bool isDev
  */
-class getenv extends \PMVC\PlugIn
+class getenv
+    extends PlugIn
     implements GetInterface
 {
     public function init()
     {
-        $this['SITE'] = function()
+        $this['SITE'] = function(&$isCache)
         {
+            $isCache = true;
             return basename(\PMVC\getAppsParent());
+        };
+
+        $this['UTM'] = function(&$isCache, $key)
+        {
+            $isCache = true;
+            $keys = ['source', 'medium', 'campaign'];
+            $isEmpty = false;
+            $arr = [];
+            foreach ($keys as $key) {
+                $kVal = \PMVC\get($_REQUEST, 'utm_'.$key);
+                $kVal = str_replace('_', '', $kVal);
+                if (empty($kVal)) {
+                    $isEmpty = true;
+                    break;
+                }
+                $arr[] = $kVal; 
+            }
+            $pCookie = \PMVC\plug('cookie');
+            if (!$isEmpty) {
+                $utm = join('_', $arr);
+                $pCookie->set($key, $utm);
+                return $utm;
+            }
+            $utm = $pCookie->get($key);
+            if (!empty($utm)) {
+                return $utm;
+            } else {
+                return null;
+            }
         };
     }
 
@@ -49,9 +82,9 @@ class getenv extends \PMVC\PlugIn
         }
     }
 
-    public function getDefault($k)
+    public function getDefault($k, $default = null)
     {
-        return \PMVC\get($_SERVER,$k);
+        return \PMVC\get($_SERVER, $k, $default);
     }
 
     public function has($k)

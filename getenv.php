@@ -27,11 +27,11 @@ class getenv
         $this['UTM'] = function(&$isCache, $key)
         {
             $isCache = true;
-            $keys = ['source', 'medium', 'campaign'];
+            $rawKeys = ['source', 'medium', 'campaign'];
             $isEmpty = false;
             $arr = [];
-            foreach ($keys as $key) {
-                $kVal = \PMVC\get($_REQUEST, 'utm_'.$key);
+            foreach ($rawKeys as $rawK) {
+                $kVal = \PMVC\get($_REQUEST, 'utm_'.$rawK);
                 $kVal = str_replace('_', '', $kVal);
                 if (empty($kVal)) {
                     $isEmpty = true;

@@ -35,6 +35,12 @@ class getenv
             $isCache = true;
             return $this->colo($key);
         };
+
+        $this['COUNTRY'] = function(&$isCache, $key)
+        {
+            $isCache = true;
+            return $this->country($key);
+        };
     }
 
     public function get($k)

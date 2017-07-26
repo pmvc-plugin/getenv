@@ -8,7 +8,7 @@ class colo
 {
     function __invoke($key)
     {
-        $colo = $this->caller->get('CF-RAY');
+        $colo = $this->caller->get('HTTP_CF_RAY');
         if (!empty($colo)) {
             $colo = \PMVC\value(explode('-', $colo), [1]);
         }

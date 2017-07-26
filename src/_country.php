@@ -8,7 +8,7 @@ class country
 {
     function __invoke($key)
     {
-        $country = $this->caller->get('CF-IPCountry');
+        $country = $this->caller->get('HTTP_CF_IPCOUNTRY');
         if (!empty($country)) {
             $country = strtolower($country);
         }

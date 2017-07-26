@@ -27,30 +27,13 @@ class getenv
         $this['UTM'] = function(&$isCache, $key)
         {
             $isCache = true;
-            $rawKeys = ['source', 'medium', 'campaign'];
-            $isEmpty = false;
-            $arr = [];
-            foreach ($rawKeys as $rawK) {
-                $kVal = \PMVC\get($_REQUEST, 'utm_'.$rawK);
-                $kVal = str_replace('_', '', $kVal);
-                if (empty($kVal)) {
-                    $isEmpty = true;
-                    break;
-                }
-                $arr[] = $kVal; 
-            }
-            $pCookie = \PMVC\plug('cookie');
-            if (!$isEmpty) {
-                $utm = join('_', $arr);
-                $pCookie->set($key, $utm, ['lifetime'=>86400*365]);
-                return $utm;
-            }
-            $utm = $pCookie->get($key);
-            if (!empty($utm)) {
-                return $utm;
-            } else {
-                return null;
-            }
+            return $this->utm($key);
+        };
+
+        $this['COLO'] = function(&$isCache, $key)
+        {
+            $isCache = true;
+            return $this->colo($key);
         };
     }
 

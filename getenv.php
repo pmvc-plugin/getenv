@@ -30,16 +30,23 @@ class getenv
             return $this->utm($key);
         };
 
-        $this['COLO'] = function(&$isCache, $key)
+        $this['CDN'] = function(&$isCache, $key)
         {
             $isCache = true;
-            return $this->colo($key);
+            return $this->cdn($key);
         };
 
         $this['COUNTRY'] = function(&$isCache, $key)
         {
             $isCache = true;
             return $this->country($key);
+        };
+
+        $this['HOST_ARRAY'] = function(&$isCache, $key, $self)
+        {
+            $isCache = true;
+            $host = $self->get('HTTP_HOST');
+            return explode('.',$host);
         };
     }
 

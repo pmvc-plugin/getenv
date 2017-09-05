@@ -7,7 +7,7 @@ use PMVC\PlugIn;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
 
-\PMVC\initPlugin(['get'=>null]);
+\PMVC\initPlugin(['get'=>null], true);
 
 /**
  * @parameters bool isDev

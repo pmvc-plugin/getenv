@@ -42,11 +42,21 @@ class getenv
             return $this->country($key);
         };
 
-        $this['HOST_ARRAY'] = function(&$isCache, $key, $self)
+        $this['HOST_ARRAY'] = function(&$isCache, $key)
         {
             $isCache = true;
-            $host = $self->get('HTTP_HOST');
+            $host = $this->get('HTTP_HOST');
             return explode('.',$host);
+        };
+
+        $this['UNIQUE_ID'] = function(&$isCache, $key)
+        {
+            $isCache = true;
+            $unique = $this->getDefault('UNIQUE_ID');
+            if (empty($unique)) {
+                $unique = $this->getDefault('HTTP_X_UNIQUE_ID');
+            }
+            return $unique;
         };
     }
 

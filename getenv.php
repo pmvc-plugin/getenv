@@ -21,7 +21,11 @@ class getenv
         $this['SITE'] = function(&$isCache)
         {
             $isCache = true;
-            return basename(\PMVC\getAppsParent());
+            if (\PMVC\exists('controller', 'plug')) {
+                return basename(\PMVC\plug('controller')->get_apps_parent());
+            } else {
+                return null;
+            }
         };
 
         $this['UTM'] = function(&$isCache, $key)

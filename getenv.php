@@ -22,7 +22,7 @@ class getenv
         {
             $isCache = true;
             if (\PMVC\exists('controller', 'plug')) {
-                return basename(\PMVC\plug('controller')->get_apps_parent());
+                return basename(\PMVC\plug('controller')->getAppsParent());
             } else {
                 return null;
             }

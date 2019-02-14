@@ -1,6 +1,9 @@
 <?php
-PMVC\Load::plug();
-PMVC\addPlugInFolders(['../']);
+namespace PMVC\PlugIn\getenv;
+
+use PMVC;
+use PHPUnit_Framework_TestCase;
+
 class GetEnvTest extends PHPUnit_Framework_TestCase
 {
     private $_plug='getenv';

@@ -18,15 +18,11 @@ class getenv extends PlugIn implements GetInterface
     {
         $this['SITE'] = function (&$isCache) {
             $isCache = true;
-            if (\PMVC\exists('controller', 'plug')) {
-                $site = $this->getDefault(
-                    'SITE',
-                    basename(\PMVC\plug('controller')->getAppsParent())
-                );
-                return $site;
-            } else {
-                return null;
-            }
+            $site = $this->getDefault(
+                'SITE',
+                basename(\PMVC\callPlugin('controller', 'getAppsParent'))
+            );
+            return $site;
         };
 
         $this['UTM'] = function (&$isCache, $key) {
@@ -63,7 +59,8 @@ class getenv extends PlugIn implements GetInterface
     public function get($k)
     {
         $reqKey = '--' . $k;
-        if ($this['isDev'] && isset($_REQUEST[$reqKey])) {
+        $request = $this->request();
+        if ($this['isDev'] && isset($request[$reqKey])) {
             return $_REQUEST[$reqKey];
         } elseif (isset($this[$k])) {
             if (!is_callable($this[$k])) {
@@ -89,5 +86,11 @@ class getenv extends PlugIn implements GetInterface
     public function has($k)
     {
         return isset($_SERVER[$k]) || isset($this[$k]);
+    }
+
+    public function request()
+    {
+        $creq = \PMVC\callPlugin('controller', 'getRequest');
+        return $creq ? $creq : $_REQUEST;
     }
 }

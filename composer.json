@@ -14,5 +14,8 @@
         "pmvc-plugin/get": "*",
         "pmvc-plugin/cookie": "*"
     },
+    "require-dev": {
+        "pmvc-plugin/controller": "*"
+    },
     "minimum-stability": "dev"
 }

@@ -11,8 +11,9 @@ class utm
         $rawKeys = ['source', 'medium', 'campaign'];
         $isEmpty = false;
         $arr = [];
+        $request = $this->caller->request();
         foreach ($rawKeys as $rawK) {
-            $kVal = \PMVC\get($_REQUEST, 'utm_'.$rawK);
+            $kVal = \PMVC\get($request, 'utm_'.$rawK);
             $kVal = str_replace('_', '', $kVal);
             if (empty($kVal)) {
                 $isEmpty = true;

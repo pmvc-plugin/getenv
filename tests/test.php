@@ -56,4 +56,11 @@ class GetEnvTest extends PMVC\TestCase
         ]);
         $this->assertEquals($fakeValue,$p->get($fakeKey));
     }
+
+    function testGetSite()
+    {
+       $_SERVER['SITE'] = 'FAKE_SITE';
+       $p = PMVC\plug($this->_plug);
+       $this->assertEquals('FAKE_SITE', $p->get('SITE'));
+    }
 }

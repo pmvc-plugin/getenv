@@ -5,56 +5,52 @@ namespace PMVC\PlugIn\getenv;
 use PMVC\PlugIn\get\GetInterface;
 use PMVC\PlugIn;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\getenv';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\getenv';
 
-\PMVC\initPlugin(['get'=>null], true);
+\PMVC\initPlugin(['get' => null], true);
 
 /**
  * @parameters bool isDev
  */
-class getenv
-    extends PlugIn
-    implements GetInterface
+class getenv extends PlugIn implements GetInterface
 {
     public function init()
     {
-        $this['SITE'] = function(&$isCache)
-        {
+        $this['SITE'] = function (&$isCache) {
             $isCache = true;
             if (\PMVC\exists('controller', 'plug')) {
-                return basename(\PMVC\plug('controller')->getAppsParent());
+                $site = $this->getDefault(
+                    'SITE',
+                    basename(\PMVC\plug('controller')->getAppsParent())
+                );
+                return $site;
             } else {
                 return null;
             }
         };
 
-        $this['UTM'] = function(&$isCache, $key)
-        {
+        $this['UTM'] = function (&$isCache, $key) {
             $isCache = true;
             return $this->utm($key);
         };
 
-        $this['CDN'] = function(&$isCache, $key)
-        {
+        $this['CDN'] = function (&$isCache, $key) {
             $isCache = true;
             return $this->cdn($key);
         };
 
-        $this['COUNTRY'] = function(&$isCache, $key)
-        {
+        $this['COUNTRY'] = function (&$isCache, $key) {
             $isCache = true;
             return $this->country($key);
         };
 
-        $this['HOST_ARRAY'] = function(&$isCache, $key)
-        {
+        $this['HOST_ARRAY'] = function (&$isCache, $key) {
             $isCache = true;
             $host = $this->get('HTTP_HOST');
-            return explode('.',$host);
+            return explode('.', $host);
         };
 
-        $this['UNIQUE_ID'] = function(&$isCache, $key)
-        {
+        $this['UNIQUE_ID'] = function (&$isCache, $key) {
             $isCache = true;
             $unique = $this->getDefault('UNIQUE_ID');
             if (empty($unique)) {
@@ -66,22 +62,15 @@ class getenv
 
     public function get($k)
     {
-        $reqKey = '--'.$k;
-        if ($this['isDev'] &&
-            isset($_REQUEST[$reqKey])
-           ) {
+        $reqKey = '--' . $k;
+        if ($this['isDev'] && isset($_REQUEST[$reqKey])) {
             return $_REQUEST[$reqKey];
         } elseif (isset($this[$k])) {
             if (!is_callable($this[$k])) {
-
                 return $this[$k];
             }
             $isCache = false;
-            $v = $this[$k](
-                $isCache,
-                $k,
-                $this
-            );
+            $v = $this[$k]($isCache, $k, $this);
             if ($isCache) {
                 $this[$k] = $v;
             }

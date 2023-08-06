@@ -2,7 +2,7 @@
 
 namespace PMVC\PlugIn\getenv;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\utm';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\utm';
 
 class utm
 {
@@ -13,18 +13,18 @@ class utm
         $arr = [];
         $request = $this->caller->request();
         foreach ($rawKeys as $rawK) {
-            $kVal = \PMVC\get($request, 'utm_'.$rawK);
+            $kVal = \PMVC\get($request, 'utm_' . $rawK, '');
             $kVal = str_replace('_', '', $kVal);
             if (empty($kVal)) {
                 $isEmpty = true;
                 break;
             }
-            $arr[] = $kVal; 
+            $arr[] = $kVal;
         }
         $pCookie = \PMVC\plug('cookie');
         if (!$isEmpty) {
             $utm = join('_', $arr);
-            $pCookie->set($key, $utm, ['lifetime'=>86400*365]);
+            $pCookie->set($key, $utm, ['lifetime' => 86400 * 365]);
             return $utm;
         }
         $utm = $pCookie->get($key);

@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/pmvc-plugin/getenv/v/stable)](https://packagist.org/packages/pmvc-plugin/getenv) 
 [![Latest Unstable Version](https://poser.pugx.org/pmvc-plugin/getenv/v/unstable)](https://packagist.org/packages/pmvc-plugin/getenv) 
-[![Build Status](https://travis-ci.org/pmvc-plugin/getenv.svg?branch=master)](https://travis-ci.org/pmvc-plugin/getenv)
+[![CircleCI](https://circleci.com/gh/pmvc-plugin/getenv/tree/main.svg?style=svg)](https://circleci.com/gh/pmvc-plugin/getenv/tree/main)
 [![License](https://poser.pugx.org/pmvc-plugin/getenv/license)](https://packagist.org/packages/pmvc-plugin/getenv)
 [![Total Downloads](https://poser.pugx.org/pmvc-plugin/getenv/downloads)](https://packagist.org/packages/pmvc-plugin/getenv) 
 
@@ -11,7 +11,7 @@ PMVC Getenv Plugin
 
 # How to use
    * check the unit test funciotn testGet
-   * https://github.com/pmvc-plugin/getenv/blob/master/test.php#L17
+   * https://github.com/pmvc-plugin/getenv/blob/main/test.php#L17
 
 
 
@@ -26,7 +26,7 @@ PMVC Getenv Plugin
 ```
 {
     "require": {
-        "pmvc-plugin/getenv": "dev-master"
+        "pmvc-plugin/getenv": "dev-main"
     }
 }
 ```

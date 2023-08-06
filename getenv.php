@@ -20,7 +20,7 @@ class getenv extends PlugIn implements GetInterface
             $isCache = true;
             $site = $this->getDefault(
                 'SITE',
-                basename(\PMVC\callPlugin('controller', 'getAppsParent'))
+                basename(\PMVC\callPlugin('controller', 'getAppsParent') || '')
             );
             return $site;
         };

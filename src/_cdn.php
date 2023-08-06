@@ -6,6 +6,7 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\cdn';
 
 class cdn 
 {
+    public $caller;
     function __invoke($key)
     {
         $cdn = $this->caller->get('HTTP_CF_RAY');

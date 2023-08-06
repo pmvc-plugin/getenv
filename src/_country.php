@@ -2,10 +2,11 @@
 
 namespace PMVC\PlugIn\getenv;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\country';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\country';
 
-class country 
+class country
 {
+    public $caller;
     function __invoke($key)
     {
         $country = $this->caller->get('HTTP_CF_IPCOUNTRY');

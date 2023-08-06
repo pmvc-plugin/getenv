@@ -6,6 +6,7 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\utm';
 
 class utm
 {
+    public $caller;
     function __invoke($key)
     {
         $rawKeys = ['source', 'medium', 'campaign'];
